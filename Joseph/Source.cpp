@@ -172,14 +172,6 @@ int main()
 			{
 				
 				matriz[i][j] = 0;
-				if (i == 0)
-				{
-					matriz[i][j] = j + 1;
-				}
-				if (j == 0)
-				{
-					matriz[i][j] = i+ 1;
-				}
 			}
 		}
 		//pasamos las variables de la matriz pequeña a la grande multiplicando directamente con el escalar
@@ -230,7 +222,7 @@ int main()
 			{
 				if (i == 0)
 				{
-					cout << "\t   "<<matriz[i][j];		
+					cout << "\t  "<<matriz[i][j];		
 				}
 				else
 				{
