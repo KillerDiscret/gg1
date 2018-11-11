@@ -97,7 +97,7 @@ int main()
 			arrnudos->obtener(i)->set_x();
 			arrnudos->obtener(i)->set_y();
 			arrnudos->obtener(i)->set_dx(i+1);
-			arrnudos->obtener(i)->set_dy(i + 1);
+			arrnudos->obtener(i)->set_dy(i+1);
 		}
 		cout << "\t\t--DATOS DE NUDOS--" << endl;
 		for (int i=0; i<nudos;i++)
@@ -157,23 +157,88 @@ int main()
 			arrobj->obtener(i)->set_sen(sen);
 			arrobj->obtener(i)->set_cos(cos);
 		}
-		//leer los datos totales
-		/*for (int i=0;i<elementos;i++)
+		
+		//creamos una matriz cuadrática 
+		double **matriz;
+		matriz = new double*[GL+1];
+		for (int i=0; i<GL+1;i++)
 		{
-			cout << "\t\tELEMENTO " << i + 1 << endl;
-			cout<<"area: "<<arrobj->obtener(i)->get_area()<<endl;
-			cout << "young: " << arrobj->obtener(i)->get_young() << endl;
-			cout << "xi: " << arrobj->obtener(i)->get_xi() << endl;
-			cout << "xf: " << arrobj->obtener(i)->get_xf() << endl;
-			cout << "yi: " << arrobj->obtener(i)->get_yi() << endl;
-			cout << "yf: " << arrobj->obtener(i)->get_yf() << endl;
-			cout << "longitud: " << arrobj->obtener(i)->get_longitud() << endl;
-			cout << "seno: " << arrobj->obtener(i)->get_sen() << endl;
-			cout << "coseno: " << arrobj->obtener(i)->get_cos() << endl;
-		}*/
-		//pasar los valores a una matriz
+			matriz[i] = new double[GL+1];
+		}
+		//pasamos los valores a la matriz, todos son ceros inicialmente
+		for (int i=0; i<GL+1;i++)
+		{
+			for (int j=0;j<GL+1;j++)
+			{
+				
+				matriz[i][j] = 0;
+				if (i == 0)
+				{
+					matriz[i][j] = j + 1;
+				}
+				if (j == 0)
+				{
+					matriz[i][j] = i+ 1;
+				}
+			}
+		}
+		//pasamos las variables de la matriz pequeña a la grande multiplicando directamente con el escalar
+		for (int i = 0; i<elementos; i++)
+		{
+			double area=arrobj->obtener(i)->get_area();
+			double young=arrobj->obtener(i)->get_young();
+			int inicial=arrobj->obtener(i)->get_inicial();
+			int final=arrobj->obtener(i)->get_final();
+			double longitud = arrobj->obtener(i)->get_longitud();
+			double seno = arrobj->obtener(i)->get_sen();
+			double coseno = arrobj->obtener(i)->get_cos();
+			double escalar = ((young*area) / longitud)*pow(10, -4);
+			int dxi=(arrnudos->obtener(inicial - 1)->get_dx());
+			int dyi=(arrnudos->obtener(inicial - 1)->get_dy());
+			int dxf = (arrnudos->obtener(final - 1)->get_dx());
+			int dyf=(arrnudos->obtener(final - 1)->get_dy());
+				cout<<"dxi: "<<dxi<<endl;
+				cout<<"dyi: "<<dyi<<endl;
+				cout<<"dxf: "<<dxf<<endl;
+				cout<<"dyf: "<<dyf<<endl;
+				cout << "escalar: " << escalar << endl;
+				matriz[dxf][dxf] = pow(coseno, 2)*escalar;
+				matriz[dxf][dyf] = seno*coseno*escalar;
+				matriz[dxf][dxi] = pow(coseno, 2)*escalar*-1;
+				matriz[dxf][dyi] = seno*coseno*escalar*-1;
 
+				matriz[dyf][dxf] = seno*coseno*escalar;
+				matriz[dyf][dyf] = pow(seno,2)*escalar;
+				matriz[dyf][dxi] = seno*coseno*escalar*-1;
+				matriz[dyf][dyi] = pow(seno, 2)*escalar*-1;
 
+				matriz[dxi][dxf] = pow(coseno, 2)*escalar*-1;
+				matriz[dxi][dyf] = seno*coseno*escalar*-1;
+				matriz[dxi][dxi] = pow(coseno, 2)*escalar;
+				matriz[dxi][dyi] = seno*coseno*escalar;
+
+				matriz[dyi][dxf] = seno*coseno*escalar*-1;
+				matriz[dyi][dyf] = pow(seno, 2)*escalar*-1;
+				matriz[dyi][dxi] = seno*coseno*escalar;
+				matriz[dyi][dyi] = pow(seno, 2)*escalar;
+		}
+		//mostramos la matriz
+		for (int i=0; i<GL+1;i++)
+		{
+			
+			for(int j=0;j<GL+1;j++)
+			{
+				if (i == 0)
+				{
+					cout << "\t   "<<matriz[i][j];		
+				}
+				else
+				{
+					cout << matriz[i][j] << " ";
+				}
+			}
+			cout << endl;
+		}
 		_getch();
 	return 0;
 }
