@@ -12,7 +12,6 @@ int main()
 	int nudos;
 	int elementos;
 	int NL;
-	int AM;
 	int AF;
 	int GL;
 	ArrElementos* arrobj;
@@ -53,18 +52,6 @@ int main()
 			do
 			{
 				cout << endl;
-				cout << "Ingrese el total de apoyos moviles: " << endl;
-				cin >> AM;
-				if (AM<0)
-				{
-					cout << "Ingrese una cantidad positiva" << endl;
-					cout << "(Presione cualquier tecla para reiniciar)...." << endl;
-					getch();
-				}
-			} while (AM<0);
-			do
-			{
-				cout << endl;
 				cout << "Ingrese el total de apoyos fijos: " << endl;
 				cin >> AF;
 				if (AF<0)
@@ -74,18 +61,17 @@ int main()
 					getch();
 				}
 			} while (AF<0);
-			if (nudos != (NL + AM + AF))
+			if (nudos != (NL +AF))
 			{
-				cout << "La cantidad de nudos libres, moviles y fijos es diferente al total de nudos" << endl;
+				cout << "La cantidad de nudos libres y fijos es diferente al total de nudos" << endl;
 				cout << "(Presione cualquier tecla para reiniciar)...." << endl;
 				getch();
 				system("CLS");
 			}
-		} while (nudos != (NL + AM + AF));
+		} while (nudos != (NL +AF));
 		GL = 2 * nudos;
 		cout << "\t ----DATOS----" << endl;
 		cout << "Nudos libres: " << NL<<endl;
-		cout << "Apoyos moviles: " << AM << endl;
 		cout << "Apoyos fijos: " << AF << endl;
 		cout << "Grados de libertad: " << GL << endl;
 		
