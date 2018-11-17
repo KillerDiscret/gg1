@@ -20,12 +20,14 @@ int main()
 	ArrNudos* arrnudos;
 	arrnudos = new ArrNudos();
 	Nudo*objnudos;
-
+	int confirmar;
 	
 		do
 		{
+
 			do
 			{
+
 				cout << endl;
 				cout << "Ingrese la cantidad total de nudos: " << endl;
 				cin >> nudos;
@@ -35,7 +37,16 @@ int main()
 					cout << "(Presione cualquier tecla para reiniciar)...." << endl;
 					getch();
 				}
-			} while (nudos<0);
+				else
+				{
+					cout << "¿Esta seguro del dato ingresado?" << endl;
+					cout << "1- SI" << endl;
+					cout << "2- NO" << endl;
+					cout << "Ingrese una opcion( 1 || 2 ) para confirmar: " << endl;
+					cin >> confirmar;
+				}
+		
+			} while (nudos<0||confirmar==2);
 
 			do
 			{
@@ -48,7 +59,15 @@ int main()
 					cout << "(Presione cualquier tecla para reiniciar)...." << endl;
 					getch();
 				}
-			} while (NL<0);
+				else
+				{
+					cout << "¿Esta seguro del dato ingresado?" << endl;
+					cout << "1- SI" << endl;
+					cout << "2- NO" << endl;
+					cout << "Ingrese una opcion( 1 || 2 ) para confirmar: " << endl;
+					cin >> confirmar;
+				}
+			} while (NL<0||confirmar==2);
 			do
 			{
 				cout << endl;
@@ -60,7 +79,15 @@ int main()
 					cout << "(Presione cualquier tecla para reiniciar)...." << endl;
 					getch();
 				}
-			} while (AF<0);
+				else
+				{
+					cout << "¿Esta seguro del dato ingresado?" << endl;
+					cout << "1- SI" << endl;
+					cout << "2- NO" << endl;
+					cout << "Ingrese una opcion( 1 || 2 ) para confirmar: " << endl;
+					cin >> confirmar;
+				}
+			} while (AF<0||confirmar==2);
 			if (nudos != (NL +AF))
 			{
 				cout << "La cantidad de nudos libres y fijos es diferente al total de nudos" << endl;
@@ -95,9 +122,18 @@ int main()
 			cout << "dx: " << arrnudos->obtener(i)->get_dx() << endl;
 			cout << "dy: " << arrnudos->obtener(i)->get_dy() << endl;
 		}
-		cout << "\t\t----DATOS ELEMENTOS----" << endl;
-		cout << "Ingrese la cantidad de elementos: " << endl;
-		cin >> elementos;
+		do {
+			cout << endl;
+			cout << "\t\t----DATOS ELEMENTOS----" << endl;
+			cout << "Ingrese la cantidad de elementos: " << endl;
+			cin >> elementos;
+			cout << endl;
+			cout << "¿Esta seguro del dato ingresado?" << endl;
+			cout << "1- SI" << endl;
+			cout << "2- NO" << endl;
+			cout << "Ingrese una opcion( 1 || 2 ) para confirmar: " << endl;
+			cin >> confirmar;
+		} while (confirmar == 2);
 		for (int i = 0; i < elementos; i++)
 		{
 			obj= new elemento();
@@ -126,7 +162,7 @@ int main()
 			arrobj->obtener(i)->set_xf(auxXF);
 			arrobj->obtener(i)->set_yf(auxYF);
 		}
-		//calcular la longitud
+		//calcular la longitud//
 		for (int i=0;i<elementos;i++)
 		{
 			double xf= arrobj->obtener(i)->get_xf();

@@ -52,26 +52,68 @@ elemento::elemento()
 
 void elemento::set_area()
 {
-	cout << "Ingrese el area(cm^2): " << endl;
-	cin >> area;
-	cout << endl;
+	int confirmar;
+	do {
+		cout << "Ingrese el area(cm^2): " << endl;
+		cin >> area;
+		cout << endl;
+		cout << endl;
+		cout << "¿Esta seguro del dato ingresado?" << endl;
+		cout << "1- SI" << endl;
+		cout << "2- NO" << endl;
+		cout << "Ingrese una opcion( 1 || 2 ) para confirmar: " << endl;
+		cin >> confirmar;
+	} while (confirmar==2);
+
 }
 void elemento::set_young()
 {
-	cout << "Ingrese el modulo de Young(Toneladas/(m^2)): " << endl;
-	cin >> young;
-	cout << endl;
+	int confirmar;
+	do
+	{
+		cout << "Ingrese el modulo de Young(Toneladas/(m^2)): " << endl;
+		cin >> young;
+		cout << endl;
+		cout << "¿Esta seguro del dato ingresado?" << endl;
+		cout << "1- SI" << endl;
+		cout << "2- NO" << endl;
+		cout << "Ingrese una opcion( 1 || 2 ) para confirmar: " << endl;
+		cin >> confirmar;
+	} while (confirmar==2);
 }
 
 void elemento::set_inicial()
 {
-	cout << "Ingrese el numero del nodo inicial:" << endl;
-	cin >> inicial;
+	int confirmar;
+	do
+	{
+		cout << "Ingrese el numero del nodo inicial:" << endl;
+		cin >> inicial;
+		cout << endl;
+		cout << "¿Esta seguro del dato ingresado?" << endl;
+		cout << "1- SI" << endl;
+		cout << "2- NO" << endl;
+		cout << "Ingrese una opcion( 1 || 2 ) para confirmar: " << endl;
+		cin >> confirmar;
+
+	} while (confirmar==2);
 }
 void elemento::set_final()
 {
-	cout << "Ingrese el numero del nodo final:" << endl;
-	cin >> final;
+	int confirmar;
+	do
+	{
+		cout << "Ingrese el numero del nodo final:" << endl;
+		cin >> final;
+		cout << endl;
+		cout << "¿Esta seguro del dato ingresado?" << endl;
+		cout << "1- SI" << endl;
+		cout << "2- NO" << endl;
+		cout << "Ingrese una opcion( 1 || 2 ) para confirmar: " << endl;
+		cin >> confirmar;
+
+	} while (confirmar == 2);
+	
 }
 void elemento::set_xi(double valor)
 {

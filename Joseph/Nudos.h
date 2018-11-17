@@ -32,13 +32,31 @@ Nudo::Nudo()
 }
 void Nudo::set_x()
 {
-	cout << "Ingrese la cordenada en el eje X: " << endl;
-	cin >> x;
+	int confirmar;
+	do {
+		cout << "Ingrese la cordenada en el eje X: " << endl;
+		cin >> x;
+		cout << endl;
+		cout << "¿Esta seguro del dato ingresado?" << endl;
+		cout << "1- SI" << endl;
+		cout << "2- NO" << endl;
+		cout << "Ingrese una opcion( 1 || 2 ) para confirmar: " << endl;
+		cin >> confirmar;
+	} while (confirmar==2);
 }
 void Nudo::set_y()
 {
-	cout << "Ingrese la cordenada en el eje Y: " << endl;
-	cin >> y;
+	int confirmar;
+	do {
+		cout << "Ingrese la cordenada en el eje Y: " << endl;
+		cin >> y;
+		cout << endl;
+		cout << "¿Esta seguro del dato ingresado?" << endl;
+		cout << "1- SI" << endl;
+		cout << "2- NO" << endl;
+		cout << "Ingrese una opcion( 1 || 2 ) para confirmar: " << endl;
+		cin >> confirmar;
+	} while (confirmar == 2);
 }
 
 void Nudo::set_orden(int valor)
