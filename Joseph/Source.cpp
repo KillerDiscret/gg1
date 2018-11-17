@@ -199,6 +199,7 @@ int main()
 		//pasamos las variables de la matriz pequeña a la grande multiplicando directamente con el escalar
 		for (int i = 0; i<elementos; i++)
 		{
+			//se calcula cada elemento dentro de su matriz 4X4
 			double area=arrobj->obtener(i)->get_area();
 			double young=arrobj->obtener(i)->get_young();
 			int inicial=arrobj->obtener(i)->get_inicial();
@@ -211,46 +212,48 @@ int main()
 			int dyi=(arrnudos->obtener(inicial - 1)->get_dy());
 			int dxf = (arrnudos->obtener(final - 1)->get_dx());
 			int dyf=(arrnudos->obtener(final - 1)->get_dy());
-				cout<<"dxi: "<<dxi<<endl;
-				cout<<"dyi: "<<dyi<<endl;
-				cout<<"dxf: "<<dxf<<endl;
-				cout<<"dyf: "<<dyf<<endl;
-				cout << "escalar: " << escalar << endl;
-				matriz[dxf][dxf] = pow(coseno, 2)*escalar;
-				matriz[dxf][dyf] = seno*coseno*escalar;
-				matriz[dxf][dxi] = pow(coseno, 2)*escalar*-1;
-				matriz[dxf][dyi] = seno*coseno*escalar*-1;
+				//cout<<"dxi: "<<dxi<<endl;
+				//cout<<"dyi: "<<dyi<<endl;
+				//cout<<"dxf: "<<dxf<<endl;
+				//cout<<"dyf: "<<dyf<<endl;
+				//cout << "escalar: " << escalar << endl;
+				matriz[dxf][dxf] = matriz[dxf][dxf]+pow(coseno, 2)*escalar;
+				matriz[dxf][dyf] = matriz[dxf][dyf]+seno*coseno*escalar;
+				matriz[dxf][dxi] = matriz[dxf][dxi]+pow(coseno, 2)*escalar*-1;
+				matriz[dxf][dyi] = matriz[dxf][dyi]+seno*coseno*escalar*-1;
 
-				matriz[dyf][dxf] = seno*coseno*escalar;
-				matriz[dyf][dyf] = pow(seno,2)*escalar;
-				matriz[dyf][dxi] = seno*coseno*escalar*-1;
-				matriz[dyf][dyi] = pow(seno, 2)*escalar*-1;
+				matriz[dyf][dxf] = matriz[dyf][dxf]+seno*coseno*escalar;
+				matriz[dyf][dyf] = matriz[dyf][dyf]+pow(seno, 2)*escalar;
+				matriz[dyf][dxi] = matriz[dyf][dxi]+seno*coseno*escalar*-1;
+				matriz[dyf][dyi] = matriz[dyf][dyi]+pow(seno, 2)*escalar*-1;
 
-				matriz[dxi][dxf] = pow(coseno, 2)*escalar*-1;
-				matriz[dxi][dyf] = seno*coseno*escalar*-1;
-				matriz[dxi][dxi] = pow(coseno, 2)*escalar;
-				matriz[dxi][dyi] = seno*coseno*escalar;
+				matriz[dxi][dxf] = matriz[dxi][dxf]+pow(coseno, 2)*escalar*-1;
+				matriz[dxi][dyf] = matriz[dxi][dyf]+seno*coseno*escalar*-1;
+				matriz[dxi][dxi] = matriz[dxi][dxi]+pow(coseno, 2)*escalar;
+				matriz[dxi][dyi] = matriz[dxi][dyi]+seno*coseno*escalar;
 
-				matriz[dyi][dxf] = seno*coseno*escalar*-1;
-				matriz[dyi][dyf] = pow(seno, 2)*escalar*-1;
-				matriz[dyi][dxi] = seno*coseno*escalar;
-				matriz[dyi][dyi] = pow(seno, 2)*escalar;
+				matriz[dyi][dxf] = matriz[dyi][dxf]+ seno*coseno*escalar*-1;
+				matriz[dyi][dyf] = matriz[dyi][dyf]+ pow(seno, 2)*escalar*-1;
+				matriz[dyi][dxi] = matriz[dyi][dxi]+ seno*coseno*escalar;
+				matriz[dyi][dyi] = matriz[dyi][dyi]+ pow(seno, 2)*escalar;
 		}
 		//mostramos la matriz
-		for (int i=0; i<GL+1;i++)
+		for (int i=1; i<GL+1;i++)
 		{
 			
-			for(int j=0;j<GL+1;j++)
+			for(int j=1;j<GL+1;j++)
 			{
 				if (i == 0)
 				{
-					cout << "\t  "<<matriz[i][j];		
+					cout << "\t\t\t\t\t"<<matriz[i][j];		
 				}
 				else
 				{
 					cout << matriz[i][j] << " ";
 				}
 			}
+			cout << endl;
+			cout << endl;
 			cout << endl;
 		}
 		_getch();
