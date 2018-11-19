@@ -401,7 +401,7 @@ int main()
 		cout << "--------Matriz del Producto Deformaciones--------" << endl;
 		for (int i = 1; i<(GL - 2 * AF) + 1; i++)
 		{
-			cout << "\t\t" << matrizP[i][0];
+			cout << "\t\tD "<<i<<": "<< matrizP[i][0];
 			cout << endl;
 			cout << endl;
 		}
@@ -465,10 +465,11 @@ int main()
 		} while (aui<(GL - (2 * AF)) + 1);
 		//mostramos la matriz
 		cout << endl;
+		int aux3=2*AF;
 		cout << "--------Matriz del Producto ultimo--------" << endl;
 		for (int i = 1; i<(2 * AF) + 1; i++)
 		{
-			cout << "\t\t" << matrizP2[i][0];
+			cout << "\t\tQ "<<i+aux3<<": " << matrizP2[i][0];
 			cout << endl;
 			cout << endl;
 		}
