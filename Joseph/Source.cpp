@@ -398,14 +398,82 @@ int main()
 		} while (auxi<(GL - (2 * AF)) + 1);
 		//mostramos la matriz
 		cout << endl;
-		cout << "--------Matriz del Producto--------" << endl;
+		cout << "--------Matriz del Producto Deformaciones--------" << endl;
 		for (int i = 1; i<(GL - 2 * AF) + 1; i++)
 		{
 			cout << "\t\t" << matrizP[i][0];
 			cout << endl;
 			cout << endl;
 		}
-	
+		
+		//almacenamos esa martriz subdividida en un arreglo nuevo
+		double** matrizS;
+		matrizS = new double*[(2 * AF)+ 1];
+		for (int i = 0; i<(2 * AF) + 1; i++)
+		{
+			matrizS[i] = new double[(GL - 2 * AF) + 1];
+		}
+		int contadorS=1;
+		for (int i = (GL - 2 * AF) + 1; i<GL + 1; i++)
+		{
+			for (int j = 1; j<(GL - 2 * AF) + 1; j++)
+			{
+			matrizS[contadorS][j]=matriz[i][j];
+			}
+			contadorS++;
+		}
+		cout << "--------Matriz general subdividida por segunda vez--------" << endl;
+		for (int i=1;i<(2 * AF) + 1;i++)
+		{
+			for (int j=1;j<(GL - 2 * AF) + 1;j++)
+			{
+				cout<<"\t\t"<<matrizS[i][j];
+			}
+			cout << endl;
+			cout << endl;
+		}
+
+		int aui = 1;
+		int auj = (GL - (2 * AF)) + 1;
+		int cont = 1;
+		int AU = 0;
+		double** matrizP2;
+		matrizP2 = new double*[(2 * AF) + 1];
+		for (int i = 0; i<(2 * AF) + 1; i++)
+		{
+			matrizP2[i] = new double[1];
+		}
+		for (int i = 0; i<(2 * AF) + 1; i++)
+		{
+			matrizP2[i][0] = 0;
+		}
+		do
+		{
+			if (cont<(GL - (2 * AF)) + 1)
+			{
+				matrizP2[aui][0] = matrizP2[aui][0] + matrizS[aui][cont]*matrizP[cont][AU];
+				cont++;
+			}
+			if (cont == (GL - (2 * AF)) + 1)
+			{
+				cont = 0;
+
+				aui++;
+
+			}
+
+		} while (aui<(GL - (2 * AF)) + 1);
+		//mostramos la matriz
+		cout << endl;
+		cout << "--------Matriz del Producto ultimo--------" << endl;
+		for (int i = 1; i<(2 * AF) + 1; i++)
+		{
+			cout << "\t\t" << matrizP2[i][0];
+			cout << endl;
+			cout << endl;
+		}
+
+
 		_getch();
 		system("pause");
 	return 0;
