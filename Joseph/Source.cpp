@@ -364,7 +364,7 @@ int main()
 			cout << endl;
 			cout << endl;
 		}
-		/*
+		
 		//multiplicamos la matriz de fuerza por la matriz inversa
 		int auxi = 1;
 		int auxj = (GL - (2* AF))+1;
@@ -384,7 +384,7 @@ int main()
 		{
 			if (contador<(GL - (2 * AF)) + 1)
 			{
-				matrizP[auxi][contador] = matrizP[auxi][contador] + matrizI[auxi][contador] * matrizF[contador][AUX];
+				matrizP[auxi][0] = matrizP[auxi][0] + matrizI[auxi][contador] * matrizF[contador][AUX];
 				contador++;
 			}
 			if (contador== (GL - (2 * AF)) + 1)
@@ -397,13 +397,15 @@ int main()
 
 		} while (auxi<(GL - (2 * AF)) + 1);
 		//mostramos la matriz
+		cout << endl;
+		cout << "--------Matriz del Producto--------" << endl;
 		for (int i = 1; i<(GL - 2 * AF) + 1; i++)
 		{
 			cout << "\t\t" << matrizP[i][0];
 			cout << endl;
 			cout << endl;
 		}
-		*/
+	
 		_getch();
 		system("pause");
 	return 0;
