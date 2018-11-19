@@ -245,7 +245,7 @@ int main()
 			{
 				if (i == 0)
 				{
-					cout << "\t\t\t\t\t"<<matriz[i][j];		
+					cout << "\t\t\t\t"<<matriz[i][j];		
 				}
 				else
 				{
@@ -256,6 +256,155 @@ int main()
 			cout << endl;
 			cout << endl;
 		}
+		cout << "Presione una tecla para continuar el preoceso...." << endl;
 		_getch();
+		system("CLS");
+		//ingresamos los datos para la matriz de fuerzas
+			//inicializamos todas las fuerzas en 0 y el angulo en 0
+		for (int i=0;i<nudos;i++)
+		{
+			arrnudos->obtener(i)->set_fuerza(0);
+			arrnudos->obtener(i)->set_angulo(0);
+
+		}
+		int nudoscargas;
+		cout << "Ingrese el total de cargas que hay en los nudos: " << endl;
+		cin >> nudoscargas;
+		int continuar;
+		double **matrizF;
+		matrizF = new double*[(GL - (2 * AF)) + 1];
+		for (int i = 0; i<(GL - 2 * AF) + 1; i++)
+		{
+			matrizF[i] = new double[1];
+		}
+		for (int i = 0; i<(GL - 2 * AF) + 1; i++)
+		{
+			matrizF[i][0] = 0;
+		}
+		do
+		{
+			int numeronudo;
+			double fuerza;
+			double angulo;
+			cout << "Indique un nudo en que hay carga: " << endl;
+			cin >> numeronudo;
+			cout << "-------- Nudo " << numeronudo << " --------" << endl;
+			cout << "Indique la magnitud de la fuerza en toneladas: " << endl;
+			cin >> fuerza;
+			arrnudos->obtener(numeronudo-1)->set_fuerza(fuerza);
+			cout << "Ingrese el angulo de inclinacion en el eje X en grados sexagesimales: " << endl;
+			cin >> angulo;
+			arrnudos->obtener(numeronudo-1)->set_angulo(angulo);
+			cout << endl;
+			int  getdx = arrnudos->obtener(numeronudo - 1)->get_dx();
+			int  getdy = arrnudos->obtener(numeronudo - 1)->get_dy();
+			double getfuerza = arrnudos->obtener(numeronudo - 1)->get_fuerza();
+			double getangulo = arrnudos->obtener(numeronudo - 1)->get_angulo();
+
+			matrizF[getdx][0] = getfuerza*cos((getangulo*atan(1) * 4) / 180);
+			matrizF[getdy][0] = getfuerza*sin((getangulo*atan(1) * 4) / 180);
+
+			cout << "¿Desea agregar mas fuerzas?" << endl;
+			cout << "1- SI" << endl;
+			cout << "2- NO" << endl;
+			cout << "Digite una opcion: " << endl;
+			cin >> continuar;
+		} while (continuar==1);
+		
+		//mostramos la matriz
+		cout << "-------Matriz de fuerzas-------" << endl;
+		for (int i = 1; i<(GL - 2 * AF) + 1; i++)
+		{
+			cout << "\t\t" << matrizF[i][0];
+			cout << endl;
+			cout << endl;
+		}
+		cout << "--------Matriz general subdividida--------" << endl;
+		for (int i = 1; i<(GL - 2 * AF) + 1; i++)
+		{
+			for (int j=1;j<(GL - 2 * AF) + 1;j++)
+			{
+				cout << "\t\t" << matriz[i][j];
+			}
+			cout << endl;
+			cout << endl;
+		}
+		cout << "--------Matriz general subdividida INVERSA--------" << endl;
+
+		double** matrizI;
+		matrizI = new double*[(GL - (2 * AF)) + 1];
+		for (int i = 0; i<(GL - 2 * AF) + 1; i++)
+		{
+			matrizI[i] = new double[(GL - 2 * AF) + 1];
+		}
+		for (int i = 0; i<(GL - 2 * AF) + 1; i++)
+		{
+			for (int j = 0; j<(GL - 2 * AF) + 1; j++)
+			{
+				matrizI[i][j] = 0;
+			}
+		}
+		//pasamos los valores a la matriz inversa
+		for (int i = 1; i<(GL - 2 * AF) + 1; i++)
+		{
+			for (int j = 1; j<(GL - 2 * AF) + 1; j++)
+			{
+				matrizI[i][j]=matriz[j][i];
+			}
+			cout << endl;
+			cout << endl;
+		}
+		//mostramos la matriz inversa
+		for (int i = 1; i<(GL - 2 * AF) + 1; i++)
+		{
+			for (int j = 1; j<(GL - 2 * AF) + 1; j++)
+			{
+				cout << "\t\t" << matrizI[i][j];
+			}
+			cout << endl;
+			cout << endl;
+		}
+		/*
+		//multiplicamos la matriz de fuerza por la matriz inversa
+		int auxi = 1;
+		int auxj = (GL - (2* AF))+1;
+		int contador = 1;
+		int AUX = 0;
+		double** matrizP;
+		matrizP = new double*[(GL - (2 * AF)) + 1];
+		for (int i = 0; i<(GL - (2 * AF)) + 1; i++)
+		{
+			matrizP[i] = new double[1];
+		}
+		for (int i = 0; i<(GL - 2 * AF) + 1; i++)
+		{
+				matrizP[i][0] = 0;	
+		}
+		do
+		{
+			if (contador<(GL - (2 * AF)) + 1)
+			{
+				matrizP[auxi][contador] = matrizP[auxi][contador] + matrizI[auxi][contador] * matrizF[contador][AUX];
+				contador++;
+			}
+			if (contador== (GL - (2 * AF)) + 1)
+			{
+				contador = 0;
+				
+					auxi++;
+			
+			}
+
+		} while (auxi<(GL - (2 * AF)) + 1);
+		//mostramos la matriz
+		for (int i = 1; i<(GL - 2 * AF) + 1; i++)
+		{
+			cout << "\t\t" << matrizP[i][0];
+			cout << endl;
+			cout << endl;
+		}
+		*/
+		_getch();
+		system("pause");
 	return 0;
 }

@@ -11,6 +11,8 @@ private:
 	double y;
 	int dx;
 	int dy;
+	double fuerza;
+	double angulo;
 public:
 	Nudo();
 	void set_x();
@@ -21,6 +23,10 @@ public:
 	int get_orden();
 	void set_dx(int valor);
 	void set_dy(int valor);
+	void set_fuerza(double valor);
+	void set_angulo(double valor);
+	double get_fuerza();
+	double get_angulo();
 	int get_dx();
 	int get_dy();
 	~Nudo();
@@ -74,6 +80,22 @@ void Nudo::set_dx(int valor)
 void Nudo::set_dy(int valor)
 {
 	dy = (valor* 2);
+}
+void Nudo::set_fuerza(double valor)
+{
+	fuerza = valor;
+}
+void Nudo::set_angulo(double valor)
+{
+	angulo = valor;
+}
+double Nudo::get_fuerza()
+{
+	return fuerza;
+}
+double Nudo::get_angulo()
+{
+	return angulo;
 }
 int Nudo::get_dx()
 {
